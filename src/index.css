@@ -3,6 +3,7 @@
 :root {
     color: rgb(56, 56, 56);
     background-color: black;
+    font-family:  Roboto, sans-serif;
 }
 
 .card {
