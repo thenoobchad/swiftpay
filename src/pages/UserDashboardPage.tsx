@@ -102,7 +102,11 @@ const menuBtns = [
 								$
 							</div>
 							<div>
-								<p className="font-semibold">US Dollar</p>
+									<p className="font-semibold">US Dollar 
+										
+										
+										{c}
+								</p>
 								<p className="text-sm text-gray-400">USDT</p>
 							</div>
 						</div>
