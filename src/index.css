@@ -2,4 +2,9 @@
 
 :root {
     color: rgb(56, 56, 56);
+    background-color: black;
+}
+
+.card {
+    @apply bg-zinc-900/50 rounded-xl p-4 
 }
