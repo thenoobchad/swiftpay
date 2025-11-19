@@ -2,7 +2,12 @@ import { Link, useParams } from "react-router-dom";
 import { useState,  type FormEvent} from "react";
 
 export default function ServicePage() {
-	// const [isDataSelect, setIsDataSelect] = useState(false)
+	const [form, setForm] = useState({
+		amount: 0,
+		net: "",
+		number: ""
+	});
+		const [isAmount, setIsAmount] = useState("");
 	const [isActive, setIsActive] = useState("")
 
 	const { service } = useParams()
@@ -14,7 +19,7 @@ export default function ServicePage() {
 
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		// setIsDataSelect(true);
+		setForm({...form})
 	};
   return (
 		<form
@@ -31,13 +36,23 @@ export default function ServicePage() {
 			{/* Airtime amount */}
 			{isAirtime && (
 				<div className=" mb-4">
-					<div className="grid grid-cols-3 grid-rows-2 gap-4 justify-between">
+					<div className="grid grid-cols-3 grid-rows-2 gap-4 justify-center items-center">
 						{["200", "500", "1000", "2000", "3000", "5000"].map((label) => (
-							<button
+							<option
+								onClick={() => {
+									if (isAirtime) {
+										console.log(isActive);
+										setIsAmount(label);
+										console.log("this here", label);
+										setForm({ ...form, amount: Number(label) });
+									}
+								}}
 								key={label}
-								className="bg-zinc-900/70 text-white border border-zinc-800 rounded-md px-4 py-2 text-sm flex-1">
-								{label}
-							</button>
+								className={`${
+									isAmount === label ? "bg-zinc-800" : "bg-zinc-900/70"
+								}  text-white border border-zinc-800 rounded-md px-4 py-2 text-sm flex`}>
+								<span className="flex w-full justify-center ">{label}</span>
+							</option>
 						))}
 					</div>
 				</div>
@@ -52,7 +67,18 @@ export default function ServicePage() {
 					</label>
 					<input
 						className="bg-zinc-900/70 text-white/90 border border-zinc-800 rounded-md px-4 py-2 text-sm h-12 flex flex-col gap-1 items-center sm:flex-row sm:gap-3 w-full outline-none"
-						placeholder="*********"
+						placeholder={`${form.amount}`}
+						value={form.amount}
+						type="text"
+						onChange={(e) => {
+							if (
+								Number.isNaN(e.target.value) ||
+								typeof e.target.value !== "number"
+							) {
+								setForm({ ...form, amount: 0 });
+							}
+							setForm({ ...form, amount: Number(e.target.value) });
+						}}
 					/>
 				</div>
 			)}
@@ -62,10 +88,15 @@ export default function ServicePage() {
 				<p className="text-white/90 text-sm mb-2 mt-7">Choose network</p>
 				<div className="grid grid-cols-4  gap-4 justify-between mt-4">
 					{["MTN", "GLO", "AIRTEL", "9MOBILE"].map((label) => (
-						<button
+						<option
 							key={label}
+							value={form.net}
 							onClick={() => {
 								if (isData) {
+									console.log(isActive);
+									setIsActive(label);
+									console.log("this here", label);
+								} else if (isAirtime) {
 									console.log(isActive);
 									setIsActive(label);
 									console.log("this here", label);
@@ -73,14 +104,16 @@ export default function ServicePage() {
 							}}
 							className={`${
 								isActive === label ? "bg-zinc-800" : "bg-zinc-900/70"
-							}  text-white border border-zinc-800 rounded-md px-4 py-2 text-sm flex-1`}>
-							{label}
-						</button>
+							}  text-white border border-zinc-800 rounded-md px-4 py-2 text-sm`}>
+							<span className="flex w-full justify-center items-center">
+								{label}
+							</span>
+						</option>
 					))}
 				</div>
 			</div>
 			{/* DATA TYPE */}
-			{isActive && (
+			{isActive && !isAirtime && (
 				<div className=" mb-4">
 					<p className="text-white/90 text-sm mb-2 mt-7">Data Types</p>
 					<select className="flex gap-4 justify-between mt-4 w-full outline-none border border-zinc-800 rounded-md px-4 py-3 text-sm bg-zinc-900/70">
@@ -92,7 +125,7 @@ export default function ServicePage() {
 					</select>
 				</div>
 			)}
-			{/* AMOUNT */}
+			{/* PONE NUMBER */}
 			<div className="flex flex-col">
 				<label className="text-white/90 text-sm mb-2 mt-7">Phone number</label>
 				<input

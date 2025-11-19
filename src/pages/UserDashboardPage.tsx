@@ -10,11 +10,16 @@ import {
 	// Clock,
 	// User,
 	ShoppingBag,
+	
+	Signal,
+	
+	// HomeIcon,
 	// Bus,
 	// CheckCircle,
 } from "lucide-react";
 import { scrollAdvert } from "../contants";
 import { Link } from "react-router-dom";
+import BottomNav from "../components/layout/bottomnav";
 
 export default function UserDashboardPage() {
 	return (
@@ -65,7 +70,7 @@ function UiApp() {
 							to={`/${c.href}`}
 							key={i}
 							className="bg-zinc-900/70 text-white/90 border border-zinc-800 rounded-md px-4 py-2 text-sm flex-1 flex flex-col gap-1 items-center sm:flex-row sm:gap-3 hover:bg-zinc-800">
-							<c.icon className="h-6 w-6" />
+							<c.icon className="h-6 w-6 text-zinc-400" />
 							{c.name}
 						</Link>
 					))}
@@ -88,21 +93,22 @@ function UiApp() {
 			</div>
 
 			{/* Transactions */}
-			<div className="mb-2 flex justify-between items-center">
-				<h2 className="text-lg font-semibold mb-4">Transactions</h2>
-				<button className="text-sm text-gray-400">See All</button>
+			<div className="mb-2 ">
+				<div className="flex justify-between items-center mt-7">
+					<h2 className="text-lg font-semibold ">Transactions</h2>
+					<button className="text-sm text-gray-400">See All</button>
+				</div>
 			</div>
 
 			<div className="space-y-3 my-4">
-				{/* Transaction Item 1 */}
-
 				{[1, 2, 3, 4].map((c, i) => (
 					<div
 						key={i}
 						className="flex justify-between items-center card border border-zinc-800 ">
 						<div className="flex items-center space-x-3">
-							<div className="bg-green-500 text-black h-10 w-10 flex items-center justify-center rounded-full">
-								$
+							<div className="bg-white text-black h-10 w-10 flex items-center justify-center rounded-full">
+								
+								<Signal/>
 							</div>
 							<div>
 								<p className="font-semibold">
@@ -120,13 +126,8 @@ function UiApp() {
 				))}
 
 				{/* Bottom Navigation */}
-				<div className="fixed sm:hidden bottom-0 left-0 w-full bg-black border-t border-gray-800 flex justify-around py-3">
-					{["Home", "Refer", "History", "Profile"].map((item) => (
-						<button key={item} className="text-gray-400 text-sm">
-							{item}
-						</button>
-					))}
-				</div>
+
+				<BottomNav />
 			</div>
 		</div>
 	);

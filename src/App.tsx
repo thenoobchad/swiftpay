@@ -35,6 +35,7 @@ export default function App() {
 				<Route path="/:service" element={<ServicePage/>} />
 				<Route path="/" element={<Navigate to="/auth" />} />
 			</Routes>
+		
 		</Router>
 	);
 }
