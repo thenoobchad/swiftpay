@@ -36,9 +36,9 @@ export default function ServicePage() {
 			{/* Airtime amount */}
 			{isAirtime && (
 				<div className=" mb-4">
-					<div className="grid grid-cols-3 grid-rows-2 gap-4 justify-center items-center">
+					<div className="grid grid-cols-3 grid-rows-4 gap-4 justify-center items-center h-40">
 						{["200", "500", "1000", "2000", "3000", "5000"].map((label) => (
-							<option
+							<div
 								onClick={() => {
 									if (isAirtime) {
 										console.log(isActive);
@@ -50,9 +50,9 @@ export default function ServicePage() {
 								key={label}
 								className={`${
 									isAmount === label ? "bg-zinc-800" : "bg-zinc-900/70"
-								}  text-white border border-zinc-800 rounded-md px-4 py-2 text-sm flex`}>
-								<span className="flex w-full justify-center ">{label}</span>
-							</option>
+								}  text-white border  row-span-2 border-zinc-800 h-full rounded-md px-4 py-2 text-sm flex`}>
+								<span className="flex w-full h-full justify-center text-xl items-center">{label}</span>
+							</div>
 						))}
 					</div>
 				</div>
